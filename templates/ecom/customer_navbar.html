@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApnoraMart</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+    body {
+        background-color: #ebe0e0;
+    }
+
+    #navbar {
+        position: sticky;
+        top: 0; 
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 10px 0;
+    }
+
+    .upper-links {
+        display: inline-block;
+        padding: 0 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 13px;
+    }
+
+    .links {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .links:hover {
+        color: #ffe11b;
+    }
+
+    .dropdown-menu {
+        border-radius: 4px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-input {
+        border-radius: 4px 0 0 4px;
+        border: none;
+        outline: none;
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    .voice-btn {
+        background: #333;
+        border: none;
+        color: white;
+        padding: 0 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+
+    .voice-btn:hover {
+        background: #555;
+    }
+
+    .navbar-button {
+        background-color: #ffe11b;
+        border: none;
+        border-radius: 0 4px 4px 0;
+        color: #000;
+        padding: 0 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .cart-button {
+        background-color: #555;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-weight: 500;
+        color: #FFFFFF;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .cart-button:hover {
+        background-color: #666;
+        color: #fff;
+    }
+
+    .item-number {
+        border-radius: 3px;
+        background-color: #ffe11b;
+        color: #000;
+        padding: 2px 6px;
+        font-weight: bold;
+        font-size: 12px;
+    }
+    </style>
+</head>
+<body>
+
+<div id="navbar">
+    <div class="container">
+        <!-- Top Links (Row 1) -->
+        <div class="d-flex justify-content-end mb-2 flex-wrap">
+            <div class="dropdown upper-links">
+                <a class="links dropdown-toggle" href="#" data-bs-toggle="dropdown">Customer</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/customerlogin">Login</a></li>
+                    <li><a class="dropdown-item" href="/customersignup">Signup</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown upper-links">
+                <a class="links dropdown-toggle" href="#" data-bs-toggle="dropdown">Vendor</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'vendorlogin' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'vendor-signup' %}">Signup</a></li>
+                </ul>
+            </div>
+
+            <div class="upper-links">
+                <a class="links" href="/adminclick">Admin</a>
+            </div>
+
+            <div class="dropdown upper-links">
+                <a class="links dropdown-toggle" href="#" data-bs-toggle="dropdown">More</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/send-feedback">Send Feedback</a></li>
+                    <li><a class="dropdown-item" href="/contactus">Contact Us</a></li>
+                    <li><a class="dropdown-item" href="/aboutus">About Us</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Nav (Logo + Search + Cart) -->
+        <div class="row align-items-center g-2">
+            <!-- Logo -->
+            <div class="col-6 col-md-2">
+                <h3 class="m-0"><a style="text-decoration:none; color:white;" href="/"><i>ApnoraMart</i></a></h3>
+            </div>
+
+            <!-- Cart (Mobile layout alignment) -->
+            <div class="col-6 col-md-2 order-md-3 text-end">
+                <a class="cart-button" href="/cart">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="white">
+                        <path d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86 "></path>
+                    </svg> 
+                    Cart <span class="item-number">{{ product_count_in_cart }}</span> 
+                </a>
+            </div>
+
+            <!-- Search Bar + Voice Mic -->
+            <div class="col-12 col-md-8 order-md-2">
+                <form id="searchForm" action="/search" method="get">
+                    <div class="d-flex w-100" style="height: 42px;">
+                        <input class="navbar-input flex-grow-1" type="search"
+                            placeholder="Search for Products..."
+                            name="query" id="query"
+                            value="{{ request.GET.query }}">
+
+                        <button type="button" class="voice-btn" onclick="startVoice()" title="Search by Voice">
+                            <svg width="18" height="18" fill="white" viewBox="0 0 24 24">
+                                <path d="M12 14c1.66 0 3-1.34 3-3V5a3 3 0 10-6 0v6c0 1.66 1.34 3 3 3z"/>
+                                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                            </svg>
+                        </button>
+
+                        <button class="navbar-button" type="submit">🔍</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function normalizeQuery(text) {
+    text = text.toLowerCase();
+    if (text.includes("आईफोन")) text = text.replace("आईफोन", "iphone");
+    if (text.includes("सैमसंग")) text = text.replace("सैमसंग", "samsung");
+    if (text.includes("जूते")) text = text.replace("जूते", "shoes");
+    return text;
+}    
+
+function startVoice() {
+    var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-IN"; 
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = function(event) {
+        let text = event.results[0][0].transcript;
+        text = normalizeQuery(text);
+
+        document.getElementById("query").value = text;
+
+        setTimeout(function() {
+            document.getElementById("searchForm").submit();
+        }, 800);
+    };
+
+    recognition.start();
+}
+</script>
+</body>
+</html>
