@@ -1,0 +1,158 @@
+{% extends 'ecom/customer_base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- ═══ HERO BANNER ═══ -->
+<div id="heroBanner" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="3500">
+  <div class="carousel-inner" style="border-radius:14px;overflow:hidden;">
+    <div class="carousel-item active">
+      <div style="height:280px;background:linear-gradient(135deg,#1a3c8e 0%,#2874f0 60%,#42a5f5 100%);display:flex;align-items:center;padding:32px 48px;">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#ffe082;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">🔥 Big Sale is Live</div>
+          <h2 style="font-size:clamp(22px,4vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em;">Up to 70% off<br>on iPhones & Gadgets</h2>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;margin-bottom:20px;">Limited time offer. Shop before it's gone.</p>
+          <a href="#" style="background:#ffe082;color:#111;font-weight:700;padding:12px 28px;border-radius:99px;font-size:14px;display:inline-block;">Shop Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div style="height:280px;background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 60%,#66bb6a 100%);display:flex;align-items:center;padding:32px 48px;">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#c8e6c9;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">⚡ Flash Deal</div>
+          <h2 style="font-size:clamp(22px,4vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em;">Fresh Groceries<br>at Doorstep</h2>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;margin-bottom:20px;">Farm fresh, delivered within hours.</p>
+          <a href="#" style="background:#fff;color:#2e7d32;font-weight:700;padding:12px 28px;border-radius:99px;font-size:14px;display:inline-block;">Order Now →</a>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div style="height:280px;background:linear-gradient(135deg,#4a148c 0%,#7b1fa2 60%,#ce93d8 100%);display:flex;align-items:center;padding:32px 48px;">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#e1bee7;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">👗 Fashion Week</div>
+          <h2 style="font-size:clamp(22px,4vw,42px);font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px;letter-spacing:-.02em;">Trending Styles<br>Flat 50% Off</h2>
+          <p style="color:rgba(255,255,255,.75);font-size:14px;margin-bottom:20px;">Top brands, unbeatable prices.</p>
+          <a href="#" style="background:#fff;color:#7b1fa2;font-weight:700;padding:12px 28px;border-radius:99px;font-size:14px;display:inline-block;">Explore →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroBanner" data-bs-slide="prev" style="width:40px;"><span class="carousel-control-prev-icon"></span></button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroBanner" data-bs-slide="next" style="width:40px;"><span class="carousel-control-next-icon"></span></button>
+  <div class="carousel-indicators" style="margin-bottom:8px;">
+    <button type="button" data-bs-target="#heroBanner" data-bs-slide-to="0" class="active" style="width:8px;height:8px;border-radius:99px;"></button>
+    <button type="button" data-bs-target="#heroBanner" data-bs-slide-to="1" style="width:8px;height:8px;border-radius:99px;"></button>
+    <button type="button" data-bs-target="#heroBanner" data-bs-slide-to="2" style="width:8px;height:8px;border-radius:99px;"></button>
+  </div>
+</div>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="pm-trust-bar mb-4">
+  <div class="pm-trust-item">
+    <div class="pm-trust-icon" style="color:#2874f0;">🚚</div>
+    <div><div class="pm-trust-title">Free Delivery</div><div class="pm-trust-sub">On orders above ₹499</div></div>
+  </div>
+  <div class="pm-trust-item">
+    <div class="pm-trust-icon" style="color:#03a685;">🔒</div>
+    <div><div class="pm-trust-title">Secure Payment</div><div class="pm-trust-sub">100% safe checkout</div></div>
+  </div>
+  <div class="pm-trust-item">
+    <div class="pm-trust-icon" style="color:#f0a500;">↩️</div>
+    <div><div class="pm-trust-title">Easy Returns</div><div class="pm-trust-sub">7-day return policy</div></div>
+  </div>
+  <div class="pm-trust-item">
+    <div class="pm-trust-icon" style="color:#e53935;">💎</div>
+    <div><div class="pm-trust-title">Premium Quality</div><div class="pm-trust-sub">Verified sellers only</div></div>
+  </div>
+</div>
+
+<!-- ═══ CATEGORIES ═══ -->
+{% if categories %}
+<div class="pm-section mb-4">
+  <div class="pm-section-header">
+    <div class="pm-section-title"><span class="title-accent"></span> Shop by Category</div>
+  </div>
+  <div class="pm-categories">
+    {% for cat in categories %}
+    <a href="?category={{ cat.id }}" class="pm-cat-chip">
+      <div class="pm-cat-img-box">
+        {% if cat.image %}
+          <img src="{{ cat.image.url }}" alt="{{ cat.name }}">
+        {% else %}
+          <i class="fa-solid fa-box" style="font-size:24px;color:#999;"></i>
+        {% endif %}
+      </div>
+      <span class="pm-cat-label">{{ cat.name }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══ FLASH SALE ═══ -->
+{% if products %}
+<div class="pm-section mb-4">
+  <div class="pm-section-header">
+    <div class="pm-section-title">
+      <span class="title-accent" style="background:var(--sale-red);"></span>
+      ⚡ Flash Sale
+      <div class="pm-deal-timer" data-timer="5400">
+        <span class="pm-timer-box"><span class="t-h">01</span></span>:
+        <span class="pm-timer-box"><span class="t-m">30</span></span>:
+        <span class="pm-timer-box"><span class="t-s">00</span></span>
+      </div>
+    </div>
+    <a href="#" class="pm-view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+
+  <div class="pm-product-grid">
+    {% for p in products %}
+    <div class="pm-card">
+      <div class="pm-badge pm-badge-sale">20% OFF</div>
+      <button class="pm-wishlist-btn" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
+
+      <a href="{% url 'add-to-cart' p.id %}">
+        <div class="pm-card-img-wrap">
+          {% if p.product_image %}
+            <img src="{{ p.product_image.url }}" alt="{{ p.name }}" loading="lazy">
+          {% else %}
+            <i class="fa-solid fa-image" style="font-size:48px;color:#ddd;"></i>
+          {% endif %}
+        </div>
+      </a>
+
+      <div class="pm-card-body">
+        <div class="pm-card-brand">ApnoraMart</div>
+        <a href="{% url 'add-to-cart' p.id %}" style="text-decoration:none;">
+          <div class="pm-card-name">{{ p.name }}</div>
+        </a>
+        <div class="pm-stars">
+          <span class="stars">★★★★☆</span>
+          <span class="count">(128)</span>
+        </div>
+        <div class="pm-card-price-row">
+          <span class="pm-card-price">₹{{ p.price }}</span>
+          <span class="pm-card-discount">20% off</span>
+        </div>
+        <div class="pm-card-delivery"><i class="fa-solid fa-truck-fast"></i> Free delivery by Tomorrow</div>
+        <div class="pm-card-actions">
+          <a href="{% url 'add-to-cart' p.id %}" class="pm-btn-cart"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+          <a href="{% url 'add-to-cart' p.id %}" class="pm-btn-buy">Buy Now</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- ═══ NEWSLETTER ═══ -->
+<div class="pm-newsletter">
+  <h3>🎁 Get Exclusive Deals in Your Inbox</h3>
+  <p>Subscribe and be the first to know about our best offers, new arrivals and flash sales.</p>
+  <div class="pm-newsletter-form">
+    <input class="pm-newsletter-input" type="email" placeholder="Enter your email address…">
+    <button class="pm-newsletter-btn">Subscribe</button>
+  </div>
+</div>
+
+{% endblock %}
